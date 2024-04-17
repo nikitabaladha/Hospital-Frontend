@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Signup from "../../components/Signup/Signup.js";
-import postAPI from "../../Api/axios.js";
+import postAPI from "../../Api/axiosPost.js";
 import { useNavigate } from "react-router-dom";
 
 const SignupContainer = () => {

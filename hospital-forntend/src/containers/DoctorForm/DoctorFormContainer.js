@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import DoctorForm from "../../components/DoctorForm/DoctorForm.js";
-import postAPI from "../../Api/axios.js";
+import postAPI from "../../Api/axiosPost.js";
 import { useNavigate } from "react-router-dom";
 
 const DoctorFormContainer = () => {

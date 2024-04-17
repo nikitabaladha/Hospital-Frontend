@@ -1,6 +1,6 @@
-// Utils/Api.js
+//Api/axios.js
+
 import Axios from "axios";
-// import { useNavigate } from "react-router-dom";
 
 const baseURL = "http://localhost:3001/api";
 
