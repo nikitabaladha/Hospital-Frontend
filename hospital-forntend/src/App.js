@@ -18,7 +18,7 @@ const App = () => {
       <Route path="/signup" element={<SignupContainer />} />
       <Route path="/doctorForm" element={<DoctorFormContainer />} />
       <Route path="/doctors" element={<DoctorsContainer />} />
-      <Route path="/drCalendar" element={<DrCalendarContainer />} />
+      <Route path="/drCalendar/:doctorId" element={<DrCalendarContainer />} />
     </Routes>
   );
 };

@@ -22,6 +22,10 @@ const DoctorsContainer = () => {
           access_token: accessToken,
         });
 
+        if (!response || !response.data || !response.data.data) {
+          throw new Error("Failed to fetch doctor details");
+        }
+
         setDoctors(response.data.data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
@@ -30,8 +34,8 @@ const DoctorsContainer = () => {
     fetchData();
   }, []);
 
-  const handleBookAppointment = () => {
-    navigate(`/drCalendar`);
+  const handleBookAppointment = (doctorId) => {
+    navigate(`/drCalendar/${doctorId}`);
   };
 
   return (
