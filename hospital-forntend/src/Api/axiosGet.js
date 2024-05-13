@@ -11,13 +11,13 @@ const axios = Axios.create({
   },
 });
 
-const getAPI = async (url, headers = {}) => {
+async function getAPI(url, headers = {}, isPrivate = true) {
   try {
-    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-
-    if (!accessToken) {
-      throw new Error("Access token not found");
+    let accessToken;
+    if (isPrivate) {
+      accessToken = JSON.parse(localStorage.getItem("accessToken"));
     }
+
     const response = await axios.get(url, {
       headers: {
         access_token: accessToken,
@@ -35,6 +35,6 @@ const getAPI = async (url, headers = {}) => {
     console.error("Error during API request:", error);
     throw error;
   }
-};
+}
 
 export default getAPI;

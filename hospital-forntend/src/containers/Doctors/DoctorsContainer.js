@@ -12,7 +12,7 @@ const DoctorsContainer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAPI("/doctorForm");
+        const response = await getAPI("/doctorForm", false);
 
         if (!response || !response.data || !response.data.data) {
           throw new Error("Failed to fetch doctor details");
@@ -27,6 +27,12 @@ const DoctorsContainer = () => {
   }, []);
 
   const handleBookAppointment = (doctorId) => {
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+
+    if (!accessToken) {
+      navigate("/login");
+      return;
+    }
     navigate(`/drCalendar/${doctorId}`);
   };
 
