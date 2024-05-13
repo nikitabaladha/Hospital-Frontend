@@ -9,6 +9,8 @@ const Signup = ({
   role,
   handleOnChange,
   handleSubmit,
+  signupErrors,
+  error,
 }) => {
   return (
     <div>
@@ -23,6 +25,9 @@ const Signup = ({
             name="userName"
             onChange={handleOnChange}
           />
+          {signupErrors.userName && (
+            <p className="error">{signupErrors.userName}</p>
+          )}
         </div>
 
         <div>
@@ -34,6 +39,7 @@ const Signup = ({
             name="email"
             onChange={handleOnChange}
           />
+          {signupErrors.email && <p className="error">{signupErrors.email}</p>}
         </div>
 
         <div>
@@ -45,6 +51,9 @@ const Signup = ({
             value={password}
             onChange={handleOnChange}
           />
+          {signupErrors.password && (
+            <p className="error">{signupErrors.password}</p>
+          )}
         </div>
 
         <div>
@@ -54,7 +63,11 @@ const Signup = ({
             <option value="Patient">Patient</option>
             <option value="Doctor">Doctor</option>
           </select>
+          {signupErrors.role && <p className="error">{signupErrors.role}</p>}
         </div>
+
+        {/* Render general form error message */}
+        {error && <p className="error">{error}</p>}
 
         <div>
           <button type="submit">Sign up</button>

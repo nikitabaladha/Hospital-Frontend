@@ -2,7 +2,14 @@
 
 import React from "react";
 
-const Login = ({ email, password, handleOnChange, handleSubmit }) => {
+const Login = ({
+  email,
+  password,
+  handleOnChange,
+  handleSubmit,
+  loginErrors,
+  error,
+}) => {
   return (
     <div>
       <h2>Login Page</h2>
@@ -17,6 +24,7 @@ const Login = ({ email, password, handleOnChange, handleSubmit }) => {
             name="email"
             onChange={handleOnChange}
           />
+          {loginErrors.email && <p className="error">{loginErrors.email}</p>}
         </div>
 
         <div>
@@ -28,7 +36,13 @@ const Login = ({ email, password, handleOnChange, handleSubmit }) => {
             value={password}
             onChange={handleOnChange}
           />
+          {loginErrors.password && (
+            <p className="error">{loginErrors.password}</p>
+          )}
         </div>
+
+        {/* Render general form error message */}
+        {error && <p className="error">{error}</p>}
 
         <div>
           <button type="submit">Login</button>

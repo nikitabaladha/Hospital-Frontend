@@ -8,23 +8,62 @@ import { useNavigate } from "react-router-dom";
 const SignupContainer = () => {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const [error, setError] = useState("");
+  const [signupData, setSignupData] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    role: "",
+  });
+
+  const [signupErrors, setSignupErrors] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    role: "",
+  });
+
+  const { userName, email, password, role } = signupData;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+    setSignupData({ ...signupData, [name]: value });
+  };
 
-    if (name === "userName") setUserName(value);
-    else if (name === "email") setEmail(value);
-    else if (name === "password") setPassword(value);
-    else if (name === "role") setRole(value);
+  const validateSignUpForm = () => {
+    let isValid = true;
+    const errors = {};
+
+    if (!userName.trim()) {
+      errors.userName = "User name cannot be empty";
+      isValid = false;
+    }
+
+    if (!email.trim()) {
+      errors.email = "Email cannot be empty";
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      errors.password = "Password cannot be empty";
+      isValid = false;
+    }
+
+    if (!role.trim()) {
+      errors.role = "Choose any one role";
+      isValid = false;
+    }
+
+    setSignupData({ ...signupData, error: "" });
+    setSignupErrors(errors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateSignUpForm()) {
+      return;
+    }
 
     try {
       const response = await postAPI("/signup", {
@@ -39,7 +78,7 @@ const SignupContainer = () => {
 
         navigate("/login");
       } else {
-        setError(response.message);
+        setSignupErrors({ error: response.message });
       }
     } catch (error) {
       console.error("Error during signup:", error);
@@ -48,7 +87,9 @@ const SignupContainer = () => {
         console.log(error.response.data.message);
       }
 
-      setError("Internal server error during signup");
+      setSignupErrors({
+        error: error.response.data.message,
+      });
     }
   };
 
@@ -60,9 +101,9 @@ const SignupContainer = () => {
       role={role}
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
-      error={error}
+      signupErrors={signupErrors}
+      error={signupErrors.error}
     />
   );
 };
-
 export default SignupContainer;

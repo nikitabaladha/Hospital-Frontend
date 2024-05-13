@@ -1,4 +1,4 @@
-// Api / axiosGet.js;
+// Api/axiosGet.js
 
 import Axios from "axios";
 
@@ -11,9 +11,18 @@ const axios = Axios.create({
   },
 });
 
-async function getAPI(url, headers = {}) {
+const getAPI = async (url, headers = {}) => {
   try {
-    const response = await axios.get(url, { headers });
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
+    const response = await axios.get(url, {
+      headers: {
+        access_token: accessToken,
+      },
+    });
 
     if (response.status === 200) {
       return {
@@ -26,6 +35,6 @@ async function getAPI(url, headers = {}) {
     console.error("Error during API request:", error);
     throw error;
   }
-}
+};
 
 export default getAPI;

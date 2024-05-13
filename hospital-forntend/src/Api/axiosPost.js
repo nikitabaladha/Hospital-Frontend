@@ -1,5 +1,3 @@
-//Api/axios.js
-
 import Axios from "axios";
 
 const baseURL = "http://localhost:3001/api";
@@ -11,9 +9,18 @@ const axios = Axios.create({
   },
 });
 
-async function postAPI(url, payload, headers = {}) {
+async function postAPI(url, payload, headers = {}, isPrivate = true) {
   try {
-    const response = await axios.post(url, payload, { headers });
+    let accessToken;
+    if (isPrivate) {
+      accessToken = JSON.parse(localStorage.getItem("accessToken"));
+    }
+
+    const response = await axios.post(url, payload, {
+      headers: {
+        access_token: accessToken,
+      },
+    });
 
     if ((response.status = 200)) {
       return {

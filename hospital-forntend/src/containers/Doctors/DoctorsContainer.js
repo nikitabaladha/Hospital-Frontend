@@ -12,15 +12,7 @@ const DoctorsContainer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-
-        if (!accessToken) {
-          throw new Error("Access token not found");
-        }
-
-        const response = await getAPI("/doctorForm", {
-          access_token: accessToken,
-        });
+        const response = await getAPI("/doctorForm");
 
         if (!response || !response.data || !response.data.data) {
           throw new Error("Failed to fetch doctor details");

@@ -1,6 +1,8 @@
 // components/DrCalendar/DrCalendarContainer.js
 import React, { useState, useEffect } from "react";
 import DrCalendar from "../../components/DrCalendar/DrCalendar";
+import DemoApp from "../../components/DemoApp/DemoApp";
+
 import getAPI from "../../Api/axiosGet.js";
 import { useParams } from "react-router-dom";
 
@@ -13,15 +15,7 @@ const DrCalendarContainer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-
-        if (!accessToken) {
-          throw new Error("Access token not found");
-        }
-
-        const response = await getAPI(`/doctorForm/${doctorId}`, {
-          access_token: accessToken,
-        });
+        const response = await getAPI(`/doctorForm/${doctorId}`);
 
         if (!response || !response.data || !response.data.data) {
           throw new Error("Failed to fetch doctor details");
@@ -29,7 +23,6 @@ const DrCalendarContainer = () => {
 
         setDoctorDetails(response.data.data);
 
-        console.log("Doctor details:", response.data.data);
         setLoading(false);
       } catch (error) {
         setError("Error fetching doctor details: " + error.message);
@@ -48,19 +41,26 @@ const DrCalendarContainer = () => {
     return <div>Error: {error}</div>;
   }
 
+  if (!Array.isArray(doctorDetails)) {
+    return null;
+  }
+
   return (
     <div>
       {doctorDetails.map((doctor, index) => (
-        <DrCalendar
-          key={index}
-          doctorName={doctor.firstName + " " + doctor.lastName}
-          speciality={doctor.speciality}
-          experience={doctor.experience}
-          email={doctor.email}
-          phone={doctor.mobileNumber}
-          fees={doctor.fees}
-          qualification={doctor.qualification}
-        />
+        <div key={index}>
+          <DrCalendar
+            doctorName={doctor.firstName + " " + doctor.lastName}
+            speciality={doctor.speciality}
+            experience={doctor.experience}
+            email={doctor.email}
+            phone={doctor.mobileNumber}
+            fees={doctor.fees}
+            qualification={doctor.qualification}
+          />
+          <h1>My Calendar App</h1>
+          <DemoApp doctorId={doctorId} />
+        </div>
       ))}
     </div>
   );

@@ -19,6 +19,7 @@ const DoctorForm = ({
   fees,
   handleSubmit,
   handleOnChange,
+  error,
 }) => {
   return (
     <div>
@@ -192,6 +193,8 @@ const DoctorForm = ({
             required
           />
         </div>
+
+        {error && <p className="error">{error}</p>}
 
         <button type="submit">Submit Form</button>
       </form>

@@ -8,25 +8,58 @@ import { useNavigate } from "react-router-dom";
 const LoginContainer = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loginErrors, setLoginErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = loginData;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
+  };
 
-    if (name === "email") setEmail(value);
-    else if (name === "password") setPassword(value);
+  const validateLoginForm = () => {
+    let isValid = true;
+    const errors = {};
+
+    if (!email.trim()) {
+      errors.email = "Email cannot be empty";
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      errors.password = "Password cannot be empty";
+      isValid = false;
+    }
+
+    setLoginData({ ...loginData, error: "" });
+    setLoginErrors(errors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validateLoginForm()) {
+      return;
+    }
+
     try {
-      const response = await postAPI("/login", {
-        email,
-        password,
-      });
+      const response = await postAPI(
+        "/login",
+        {
+          email,
+          password,
+        },
+        false
+      );
 
       if (!response.hasError) {
         console.log("Login successful Message:", response.data.message);
@@ -54,7 +87,7 @@ const LoginContainer = () => {
           navigate("/");
         }
       } else {
-        setError(response.message);
+        setLoginErrors({ error: response.data.message });
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -65,7 +98,9 @@ const LoginContainer = () => {
       ) {
         console.log(error.response.data.message);
       }
-      setError("Internal server error during login");
+      setLoginErrors({
+        error: error.response.data.message,
+      });
     }
   };
 
@@ -75,7 +110,8 @@ const LoginContainer = () => {
       password={password}
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
-      error={error}
+      loginErrors={loginErrors}
+      error={loginErrors.error}
     />
   );
 };
