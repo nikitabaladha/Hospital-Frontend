@@ -28,13 +28,8 @@ const DoctorsContainer = () => {
   }, []);
 
   const handleBookAppointment = (doctorId) => {
+    console.log(doctorId);
     const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-
-    // if (!accessToken) {
-    //   navigate(`/login?doctorId=${doctorId}`);
-    //   return;
-    // }
-    // navigate(`/drCalendar/${doctorId}`);
 
     if (!accessToken) {
       navigate(`/login?doctorId=${doctorId}`);
