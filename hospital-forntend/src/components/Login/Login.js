@@ -8,6 +8,7 @@ const Login = ({
   handleOnChange,
   handleSubmit,
   loginErrors,
+  handleNavigate,
   error,
 }) => {
   return (
@@ -51,7 +52,8 @@ const Login = ({
 
       <div>
         <h2>
-          Don't have an account? <a href="/signup">Sign up</a>
+          Don't have an account?{" "}
+          <button onClick={handleNavigate}>Sign up</button>
         </h2>
       </div>
     </div>

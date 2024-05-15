@@ -7,6 +7,7 @@ import getAPI from "../../Api/axiosGet.js";
 
 const DoctorsContainer = () => {
   const [doctors, setDoctors] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,11 +30,17 @@ const DoctorsContainer = () => {
   const handleBookAppointment = (doctorId) => {
     const accessToken = JSON.parse(localStorage.getItem("accessToken"));
 
+    // if (!accessToken) {
+    //   navigate(`/login?doctorId=${doctorId}`);
+    //   return;
+    // }
+    // navigate(`/drCalendar/${doctorId}`);
+
     if (!accessToken) {
-      navigate("/login");
-      return;
+      navigate(`/login?doctorId=${doctorId}`);
+    } else {
+      navigate(`/drCalendar/${doctorId}`);
     }
-    navigate(`/drCalendar/${doctorId}`);
   };
 
   return (

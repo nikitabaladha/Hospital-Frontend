@@ -3,10 +3,23 @@
 import React, { useState } from "react";
 import Login from "../../components/Login/Login.js";
 import postAPI from "../../Api/axiosPost";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginContainer = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const doctorId = queryParams.get("doctorId");
+
+  const handleNavigate = () => {
+    localStorage.setItem("locationPathname", location.pathname);
+    localStorage.setItem(
+      "queryParams",
+      JSON.stringify(Object.fromEntries(queryParams.entries()))
+    );
+
+    navigate("/signup");
+  };
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -72,7 +85,6 @@ const LoginContainer = () => {
         };
 
         localStorage.setItem("userDetails", JSON.stringify(userDetails));
-
         localStorage.setItem(
           "accessToken",
           JSON.stringify(response.data.accessToken)
@@ -84,8 +96,21 @@ const LoginContainer = () => {
         ) {
           navigate("/doctorForm");
         } else {
-          navigate("/");
+          const storedPathname = localStorage.getItem("locationPathname");
+          const storedDoctorId = localStorage.getItem("queryParams")
+            ? JSON.parse(localStorage.getItem("queryParams")).doctorId
+            : null;
+
+          if (storedPathname === "/login" && storedDoctorId) {
+            navigate(`/drCalendar/${storedDoctorId}`);
+          } else if (doctorId) {
+            navigate(`/drCalendar/${doctorId}`);
+          } else {
+            navigate("/");
+          }
         }
+        localStorage.removeItem("locationPathname");
+        localStorage.removeItem("queryParams");
       } else {
         setLoginErrors({ error: response.data.message });
       }
@@ -111,6 +136,7 @@ const LoginContainer = () => {
       handleOnChange={handleOnChange}
       handleSubmit={handleSubmit}
       loginErrors={loginErrors}
+      handleNavigate={handleNavigate}
       error={loginErrors.error}
     />
   );

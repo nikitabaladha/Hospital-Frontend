@@ -5,7 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import getAPI from "../../Api/axiosGet.js";
-import "./index.css";
+import "./demo.css";
 import moment from "moment";
 
 function DemoApp({ doctorId }) {
