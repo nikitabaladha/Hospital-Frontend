@@ -7,7 +7,7 @@ import logoImage from "../../images/aayushakti.png";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img id="brand-logo" src={logoImage} alt="Logo" />
@@ -51,12 +51,12 @@ const Navbar = () => {
         <div className="justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="btn btn-primary" to="/login">
+              <Link className="btn btn-login" to="/login">
                 Login
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="btn btn-success" to="/appointment">
+              <Link className="btn btn-appointment" to="/appointment">
                 Make an Appointment
               </Link>
             </li>

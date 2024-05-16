@@ -1,0 +1,64 @@
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#big-hospitalName {
+  color: purple;
+  font-family: "Lobster", cursive;
+  animation: fadeInOut 5s linear infinite;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: "Noto Serif";
+}
+
+.left-div {
+  justify-content: center;
+}
+
+.left-part-upper {
+  color: green;
+  font-weight: bold;
+}
+
+.left-part-below {
+  color: green;
+  font-weight: bold;
+}
+
+.welcomeLine {
+  font-size: 90px;
+}
+
+.small-hospitalName {
+  color: purple;
+  font-weight: bold;
+}
+
+.background-image {
+  background-image: url("../../images/home.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 85vh;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#mainDiv {
+  background-color: #cfe6fe;
+}
