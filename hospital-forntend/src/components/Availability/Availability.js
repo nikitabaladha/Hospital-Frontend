@@ -5,10 +5,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import getAPI from "../../Api/axiosGet.js";
-import "./demo.css";
+import "./Availability.css";
 import moment from "moment";
 
-function DemoApp({ doctorId }) {
+function Availability({ doctorId }) {
   const [availability, setAvailability] = useState([]);
   const [todayAvailability, setTodayAvailability] = useState({
     min: "00:00",
@@ -109,42 +109,6 @@ function DemoApp({ doctorId }) {
     }
   }
 
-  // function getMaxAndMinTime(date = moment()) {
-  //   const day = moment(date).format("dddd");
-  //   const daysOfWeek = [
-  //     "Sunday",
-  //     "Monday",
-  //     "Tuesday",
-  //     "Wednesday",
-  //     "Thursday",
-  //     "Friday",
-  //     "Saturday",
-  //     "Sunday",
-  //   ];
-
-  //   if (!daysOfWeek.includes(day)) {
-  //     setTodayAvailability({
-  //       min: "00:00",
-  //       max: "00:00",
-  //     });
-  //     return;
-  //   }
-  //   if (availability?.length) {
-  //     const todayAvailability = availability.find((ava) => ava.day === day);
-  //     if (todayAvailability)
-  //       setTodayAvailability({
-  //         min: todayAvailability.startTime,
-  //         max: todayAvailability.endTime,
-  //       });
-  //   } else {
-  //     // If day is not found, set default min and max values
-  //     setTodayAvailability({
-  //       min: "00:00",
-  //       max: "00:00",
-  //     });
-  //   }
-  // }
-
   function getMaxAndMinTime(date = moment()) {
     const day = moment(date).format("dddd");
 
@@ -230,4 +194,4 @@ function Sidebar({ availability }) {
   );
 }
 
-export default DemoApp;
+export default Availability;

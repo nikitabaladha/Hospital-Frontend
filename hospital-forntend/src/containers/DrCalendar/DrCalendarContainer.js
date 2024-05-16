@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DrCalendar from "../../components/DrCalendar/DrCalendar";
-import DemoApp from "../../components/DemoApp/DemoApp";
+import Availability from "../../components/Availability/Availability.js";
 import getAPI from "../../Api/axiosGet.js";
 
 const DrCalendarContainer = () => {
@@ -40,7 +40,7 @@ const DrCalendarContainer = () => {
             qualification={doctorData.qualification}
           />
           <h1>My Calendar App</h1>
-          <DemoApp doctorId={doctorId} />
+          <Availability doctorId={doctorId} />
         </>
       ) : (
         <p>Loading...</p>
