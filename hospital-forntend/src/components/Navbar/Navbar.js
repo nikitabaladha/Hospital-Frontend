@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import "./index.css";
+import "./Navbar.css";
 import logoImage from "../../images/aayushakti.png";
 
 const Navbar = () => {
