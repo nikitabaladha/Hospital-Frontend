@@ -375,6 +375,10 @@ const SignupContainer = () => {
 
   const { userName, email, password, role } = signupData;
 
+  const handleNavigate = () => {
+    navigate("/login");
+  };
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setSignupData({ ...signupData, [name]: value });
@@ -457,6 +461,7 @@ const SignupContainer = () => {
       handleSubmit={handleSubmit}
       signupErrors={signupErrors}
       error={signupErrors.error}
+      handleNavigate={handleNavigate}
     />
   );
 };

@@ -1,6 +1,6 @@
-/* Login.css  */
+/* Signup.css */
 
-.login-container-fluid {
+.signup-container-fluid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,24 +15,24 @@
 
 .form-container {
   background-color: #fff;
-  padding: 40px !important;
+  padding: 10px 40px !important;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
 }
 
-.login-input-group {
-  margin-bottom: 20px !important;
-}
-
 h2 {
   font-weight: bold;
 }
 
+.signup-input-group {
+  margin-bottom: 2px !important;
+}
+
 label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   font-size: 16px;
   color: #333;
 }
@@ -46,7 +46,26 @@ input {
   transition: box-shadow 0.3s ease;
 }
 
-input:focus {
+select {
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  transition: box-shadow 0.3s ease;
+}
+
+.role {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.role label {
+  margin-right: 15px;
+}
+
+input:focus,
+select:focus {
   box-shadow: 0 0 15px rgba(84, 143, 148, 1);
   border-color: #548f94 !important;
 }
@@ -92,11 +111,11 @@ button:hover {
   color: #333;
 }
 
-.signup-message-container {
+.login-message-container {
   text-align: center;
   margin-top: 20px;
 }
 
-.signup-message {
+.login-message {
   font-size: 20px;
 }
