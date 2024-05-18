@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../components/Doctors/Doctors.css";
 import Doctors from "../../components/Doctors/Doctors.js";
 import getAPI from "../../Api/axiosGet.js";
 
@@ -44,7 +45,7 @@ const DoctorsContainer = () => {
       {doctors.length === 0 ? (
         <p>No doctors found.</p>
       ) : (
-        <div>
+        <div className="doctors-container">
           {doctors.map((doctor) => (
             <Doctors
               key={doctor.id}
@@ -53,7 +54,7 @@ const DoctorsContainer = () => {
               experience={doctor.experience}
               qualification={doctor.qualification}
               email={doctor.email}
-              phone={doctor.phone}
+              phone={doctor.mobileNumber}
               fees={doctor.fees}
               handleBookAppointment={() => handleBookAppointment(doctor.id)}
             />

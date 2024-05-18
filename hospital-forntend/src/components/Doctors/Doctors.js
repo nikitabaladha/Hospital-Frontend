@@ -1,5 +1,6 @@
 // components/Doctors/Doctors.js
 import React from "react";
+import "./Doctors.css";
 
 const Doctors = ({
   doctorName,
@@ -13,7 +14,7 @@ const Doctors = ({
   handleBookAppointment,
 }) => {
   return (
-    <div key={id}>
+    <div className="doctor-card" key={id}>
       <h3>{doctorName}</h3>
       <p>{speciality}</p>
       <p>Experience: {experience} years</p>
