@@ -39,7 +39,7 @@ const DrCalendarContainer = () => {
             fees={doctorData.fees}
             qualification={doctorData.qualification}
           />
-          <h1>My Calendar App</h1>
+
           <Availability doctorId={doctorId} />
         </>
       ) : (

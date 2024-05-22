@@ -432,6 +432,7 @@ const SignupContainer = () => {
       );
 
       if (!response.hasError) {
+        alert(response.data.message);
         console.log("Signup successful message: ", response.data.message);
 
         navigate("/login");

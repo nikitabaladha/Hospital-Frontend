@@ -39,6 +39,7 @@ const DoctorFormContainer = () => {
       const response = await postAPI("/doctorForm", doctorFormData);
 
       if (!response.hasError) {
+        alert(response.data.message);
         console.log("Successful form submission: ", response.data.message);
 
         navigate("/");

@@ -75,6 +75,7 @@ const LoginContainer = () => {
       );
 
       if (!response.hasError) {
+        alert(response.data.message);
         console.log("Login successful Message:", response.data.message);
 
         const userDetails = {
