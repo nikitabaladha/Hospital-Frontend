@@ -1,11 +1,14 @@
-// components / Navbar / Navbar.js;
+// components/Navbar/Navbar.js
 
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logoImage from "../../images/aayushakti.png";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
@@ -50,11 +53,19 @@ const Navbar = () => {
 
         <div className="justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="btn btn-login" to="/login">
-                Login
-              </Link>
-            </li>
+            {isAuthenticated ? (
+              <li className="nav-item">
+                <button className="btn btn-logout" onClick={logout}>
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="btn btn-login" to="/login">
+                  Login
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="btn btn-appointment" to="/appointment">
                 Make an Appointment

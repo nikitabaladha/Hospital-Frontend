@@ -1,11 +1,13 @@
 // containers/Login/LoginContainer.js
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Login from "../../components/Login/Login.js";
 import postAPI from "../../Api/axiosPost";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginContainer = () => {
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -90,6 +92,8 @@ const LoginContainer = () => {
           "accessToken",
           JSON.stringify(response.data.accessToken)
         );
+
+        login();
 
         if (
           response.data.userDetails.userType === "Doctor" &&

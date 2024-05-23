@@ -1,0 +1,22 @@
+.dr-calendar-card {
+  max-width: 500px;
+  margin: 20px auto;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dr-calendar-card .card-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+.dr-calendar-card .card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.dr-calendar-card .card-text strong {
+  color: #343a40;
+}

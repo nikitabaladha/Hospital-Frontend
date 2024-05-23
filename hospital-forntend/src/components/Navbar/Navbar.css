@@ -16,7 +16,8 @@
 }
 
 .btn-login,
-.btn-appointment {
+.btn-appointment,
+.btn-logout {
   font-family: "Playfair Display", sans-serif;
   color: purple;
   border-color: purple;
@@ -27,8 +28,13 @@
   margin-right: 10px;
 }
 
+.btn-appointment {
+  margin-left: 10px;
+}
+
 .btn-login:hover,
-.btn-appointment:hover {
+.btn-appointment:hover,
+.btn-logout:hover {
   background-color: purple;
   color: white;
 }
