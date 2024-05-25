@@ -7,7 +7,7 @@ import logoImage from "../../images/aayushakti.png";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, userDetails, logout } = useContext(AuthContext);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -54,11 +54,31 @@ const Navbar = () => {
         <div className="justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0">
             {isAuthenticated ? (
-              <li className="nav-item">
-                <button className="btn btn-logout" onClick={logout}>
-                  Logout
-                </button>
-              </li>
+              <>
+                <li className="nav-item">
+                  <button className="btn btn-logout" onClick={logout}>
+                    Logout
+                  </button>
+                </li>
+                {userDetails &&
+                userDetails.userType === "Doctor" &&
+                userDetails.status === "Approved" ? (
+                  <li className="nav-item">
+                    <Link
+                      className="btn btn-appointment"
+                      to="/availabilityForm"
+                    >
+                      Set Your Availability
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="nav-item">
+                    <Link className="btn btn-appointment" to="/appointment">
+                      Make an Appointment
+                    </Link>
+                  </li>
+                )}
+              </>
             ) : (
               <li className="nav-item">
                 <Link className="btn btn-login" to="/login">
@@ -66,16 +86,10 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
-            <li className="nav-item">
-              <Link className="btn btn-appointment" to="/appointment">
-                Make an Appointment
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

@@ -6,26 +6,33 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    const userDetails = localStorage.getItem("userDetails");
-    if (userDetails) {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    if (storedUserDetails) {
       setIsAuthenticated(true);
+      setUserDetails(JSON.parse(storedUserDetails));
     }
   }, []);
 
-  const login = () => {
+  const login = (details) => {
+    localStorage.setItem("userDetails", JSON.stringify(details));
     setIsAuthenticated(true);
+    setUserDetails(details);
   };
 
   const logout = () => {
     localStorage.removeItem("userDetails");
     localStorage.removeItem("accessToken");
     setIsAuthenticated(false);
+    setUserDetails(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, userDetails, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
