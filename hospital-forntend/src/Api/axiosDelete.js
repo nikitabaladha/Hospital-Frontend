@@ -9,20 +9,21 @@ const axios = Axios.create({
   },
 });
 
-async function postAPI(url, payload, headers = {}, isPrivate = true) {
+async function deleteAPI(url, headers = {}, isPrivate = true) {
   try {
     let accessToken;
     if (isPrivate) {
       accessToken = JSON.parse(localStorage.getItem("accessToken"));
     }
 
-    const response = await axios.post(url, payload, {
+    const response = await axios.delete(url, {
       headers: {
+        ...headers,
         access_token: accessToken,
       },
     });
 
-    if ((response.status = 200)) {
+    if (response.status === 200) {
       return {
         message: response.data.message,
         hasError: response.data.hasError,
@@ -30,19 +31,18 @@ async function postAPI(url, payload, headers = {}, isPrivate = true) {
       };
     }
   } catch (error) {
-    console.error("Error during Api request:", error);
-
+    console.error("Error during API request:", error);
     throw error;
   }
 }
 
-// export const isAuthenticated = () => {
-//   const userInfo = localStorage.getItem("userInfo");
-//   return userInfo !== null;
-// };
+export const isAuthenticated = () => {
+  const userInfo = localStorage.getItem("userInfo");
+  return userInfo !== null;
+};
 
-// export const handleUnauthorized = (navigate) => {
-//   navigate("/login");
-// };
+export const handleUnauthorized = (navigate) => {
+  navigate("/login");
+};
 
-export default postAPI;
+export default deleteAPI;

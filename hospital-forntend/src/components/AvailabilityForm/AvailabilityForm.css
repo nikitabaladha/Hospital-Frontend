@@ -89,6 +89,12 @@ label {
   border-bottom: 1px solid #ddd;
 }
 
+.delete-icon {
+  cursor: pointer;
+  margin-left: 15px;
+  color: rgba(84, 143, 148, 1);
+}
+
 @media (max-width: 768px) {
   .availability-form,
   .submitted-availabilities {

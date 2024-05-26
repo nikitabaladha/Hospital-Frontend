@@ -3,13 +3,15 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaTrashAlt } from "react-icons/fa";
 import "./AvailabilityForm.css";
+import { Button } from "react-bootstrap";
 
 const AvailabilityForm = ({
   day,
   startTime,
   endTime,
-  message,
+
   onDayChange,
   onStartTimeChange,
   onEndTimeChange,
@@ -17,6 +19,7 @@ const AvailabilityForm = ({
   submittedAvailabilities,
   formErrors,
   onKeyDown,
+  onDelete,
 }) => {
   return (
     <div className="availability-form-container row">
@@ -75,16 +78,22 @@ const AvailabilityForm = ({
             <button type="submit">Create Availability</button>
           </div>
         </form>
-        {message && <p>{message}</p>}
       </div>
 
       <div className="submitted-availabilities col-md-6 col-sm-12">
         <h2 className="heading">Submitted Availabilities</h2>
         <ul>
-          {submittedAvailabilities.map((availability, index) => (
-            <li key={index}>
+          {submittedAvailabilities.map((availability) => (
+            <li key={availability.id}>
               {availability.day} - {availability.startTime} to{" "}
               {availability.endTime}
+              <FaTrashAlt
+                onClick={() => {
+                  console.log("Deleting availability with ID:", availability);
+                  onDelete(availability.id);
+                }}
+                className="delete-icon"
+              />
             </li>
           ))}
         </ul>

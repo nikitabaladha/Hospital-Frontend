@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AvailabilityForm from "../../components/AvailabilityForm/AvailabilityForm.js";
 import postAPI from "../../Api/axiosPost.js";
 import getAPI from "../../Api/axiosGet.js";
+import deleteAPI from "../../Api/axiosDelete.js";
 
 const AvailabilityFormContainer = () => {
   const [day, setDay] = useState("");
@@ -17,23 +18,25 @@ const AvailabilityFormContainer = () => {
 
   const [submittedAvailabilities, setSubmittedAvailabilities] = useState([]);
 
-  useEffect(() => {
-    const fetchAvailabilities = async () => {
-      try {
-        const response = await getAPI(`/availability`);
-        if (!response.hasError) {
-          setSubmittedAvailabilities(response.data.data);
-        } else {
-          setMessage(response.data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching availabilities:", error);
-        const errorMessage =
-          error.response?.data?.message || "Error fetching availabilities";
-        setMessage(errorMessage);
-      }
-    };
+  const fetchAvailabilities = async () => {
+    try {
+      const response = await getAPI(`/availability`);
 
+      if (!response.hasError) {
+        setSubmittedAvailabilities(response.data.data);
+      } else {
+        setMessage(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching availabilities:", error);
+
+      const errorMessage =
+        error.response?.data?.message || "Error fetching availabilities";
+      setMessage(errorMessage);
+    }
+  };
+
+  useEffect(() => {
     fetchAvailabilities();
   }, []);
 
@@ -98,22 +101,13 @@ const AvailabilityFormContainer = () => {
         endTime: formatTime(endTime),
       });
 
-      if (!response.data.hasError) {
-        const newAvailability = {
-          day,
-          startTime: formatTime(startTime),
-          endTime: formatTime(endTime),
-        };
-
-        setSubmittedAvailabilities([
-          ...submittedAvailabilities,
-          newAvailability,
-        ]);
+      if (!response.hasError) {
         setMessage(response.data.message);
-
         setDay("");
         setStartTime(new Date());
         setEndTime(new Date());
+
+        await fetchAvailabilities();
       } else {
         setMessage(response.data.message);
       }
@@ -123,6 +117,28 @@ const AvailabilityFormContainer = () => {
       const errorMessage =
         error.response?.data?.message ||
         "There was an error creating the availability";
+      setMessage(errorMessage);
+    }
+  };
+
+  const handleDelete = async (availabilityId) => {
+    try {
+      const response = await deleteAPI(`/availability/${availabilityId}`);
+
+      if (!response.hasError) {
+        setSubmittedAvailabilities((prev) =>
+          prev.filter((availability) => availability.id !== availabilityId)
+        );
+        setMessage(response.data.message);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during deleting availability:", error);
+
+      const errorMessage =
+        error.response?.data?.message ||
+        "There was an error deleting the availability";
       setMessage(errorMessage);
     }
   };
@@ -140,6 +156,7 @@ const AvailabilityFormContainer = () => {
       submittedAvailabilities={submittedAvailabilities}
       formErrors={formErrors}
       onKeyDown={preventTyping}
+      onDelete={handleDelete}
     />
   );
 };
