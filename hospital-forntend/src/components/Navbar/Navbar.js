@@ -7,7 +7,9 @@ import logoImage from "../../images/aayushakti.png";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { isAuthenticated, userDetails, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -60,8 +62,7 @@ const Navbar = () => {
                     Logout
                   </button>
                 </li>
-                {userDetails &&
-                userDetails.userType === "Doctor" &&
+                {userDetails?.userType === "Doctor" &&
                 userDetails.status === "Approved" ? (
                   <li className="nav-item">
                     <Link

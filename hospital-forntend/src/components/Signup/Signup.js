@@ -19,7 +19,7 @@ const Signup = ({
       <div className="form-container">
         <h2 className="heading">Signup</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
+          <div className="signup-input-group">
             <label htmlFor="userName">User Name:</label>
             <input
               type="text"

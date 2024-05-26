@@ -37,22 +37,18 @@ label {
   color: #333;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 10px;
   font-size: 14px;
-  border-radius: 25px !important;
+  border-radius: 25px;
   border: 1px solid #ddd;
   transition: box-shadow 0.3s ease;
 }
 
 select {
-  width: 80%;
-  padding: 10px;
-  font-size: 14px;
   border-radius: 25px !important;
-  border: 1px solid #ddd;
-  transition: box-shadow 0.3s ease;
 }
 
 .role {
